@@ -6,13 +6,32 @@ namespace TreeApp
 {
     public class Tree<T> : ITree<T> where T : IComparable<T>
     {
+        /// <summary>
+        /// tree element class
+        /// </summary>
         private class TreeElement
         {
+            /// <summary>
+            /// tree element value
+            /// </summary>
             public T Value { get; set; }
+            /// <summary>
+            /// tree element right child
+            /// </summary>
             public TreeElement RightChild { get; set; }
+            /// <summary>
+            /// tree element left child
+            /// </summary>
             public TreeElement LeftChild { get; set; }
+            /// <summary>
+            /// parent of tree element 
+            /// </summary>
             public TreeElement Parent { get; set; }
 
+            /// <summary>
+            /// constructor method
+            /// </summary>
+            /// <param name="value">value of element</param>
             public TreeElement(T value)
             {
                 Value = value;
@@ -22,6 +41,9 @@ namespace TreeApp
             }
         }
 
+        /// <summary>
+        /// tree head element
+        /// </summary>
         private TreeElement treeHead = null;
 
         public void InsertElement(T value)

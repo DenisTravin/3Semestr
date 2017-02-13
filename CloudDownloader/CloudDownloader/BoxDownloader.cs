@@ -44,7 +44,8 @@ namespace BoxDownloader
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Uri oneUrl = new Uri("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=" + clientId + "&state=security_token");
-            browser.Navigate(oneUrl);
+            browser.Navigate(oneUrl, "Content-Type: application/x-www-form-urlencoded");
+            //browser.Navigate(oneUrl);
             timer.Interval = 5000;
             ProgressBar();
             DownloadButton();
@@ -74,6 +75,7 @@ namespace BoxDownloader
         private static string POST(string Url, string Data)
         {
             System.Net.WebRequest req = System.Net.WebRequest.Create(Url);
+            req.ContentType = "text/html; charset=UTF-8";
             req.Method = "POST";
             req.Timeout = 100000;
             req.ContentType = "application/x-www-form-urlencoded";

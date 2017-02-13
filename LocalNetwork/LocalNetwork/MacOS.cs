@@ -1,9 +1,9 @@
 ﻿namespace LocalNetwork
 {
     /// <summary>
-	/// MacOS class
-	/// </summary>
-	public class MacOS : AbstractOS
+    /// MacOS class
+    /// </summary>
+    public class MacOS : AbstractOS
     {
         private const int infectionChance = 30;
 

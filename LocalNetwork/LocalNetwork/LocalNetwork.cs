@@ -43,7 +43,7 @@ namespace LocalNetwork
         /// <summary>
         /// make infection step
         /// </summary>
-        public void InfectionStep()
+        public void InfectionStep(int randomElement)
         {
             infectedComputers = new List<ConcreteComputer>();
             for (var i = 0; i < allComputers.Count; i++)
@@ -54,14 +54,17 @@ namespace LocalNetwork
                     {
                         if (i != j && linkedComputers[i, j] && !allComputers[j].IsInfected && !infectedComputers.Contains(allComputers[j]))
                         {
-                            if (randomElement.Next(0, 100) < allComputers[j].GetInfectionChance())
+                            if (randomElement < allComputers[j].GetInfectionChance())
                             {
-                                allComputers[j].IsInfected = true;
                                 infectedComputers.Add(allComputers[j]);
                             }
                         }
                     }
                 }
+            }
+            foreach(var computer in infectedComputers)
+            {
+                computer.IsInfected = true;
             }
         }
 
@@ -69,7 +72,7 @@ namespace LocalNetwork
         /// check local network status   
         /// </summary>
         /// <returns>Does all computers infected?</returns>
-        public bool SystemStatus()
+        public bool IsNetworkInfected()
         {
             int numberOfInfectedComputers = 0;
             foreach (var localComputer in allComputers)
@@ -88,9 +91,9 @@ namespace LocalNetwork
         public void Infection()
         {
             int step = 1;
-            while (!SystemStatus())
+            while (!IsNetworkInfected())
             {
-                InfectionStep();
+                InfectionStep(randomElement.Next(0, 100));
                 Console.WriteLine("{0} step:", step);
                 for (var i = 0; i < allComputers.Count; i++)
                 {

@@ -1,5 +1,4 @@
-﻿
-namespace LocalNetwork
+﻿namespace LocalNetwork
 {
     public class Program
     {

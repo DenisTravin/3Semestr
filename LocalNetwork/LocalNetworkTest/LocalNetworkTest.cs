@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace LocalNetwork
+﻿namespace LocalNetwork
 {
+    using System.Collections.Generic;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System;
+
     [TestClass]
     public class LocalNetworkTests
     {
@@ -36,7 +37,9 @@ namespace LocalNetwork
                 new ConcreteComputer(new Windows(), false)
             };
             var localNetwork = new LocalNetwork(localComputers, adjMatrix);
-            localNetwork.Infection(true);
+            Random randomElement = new Random();
+            Func<int> virusFunc = () => randomElement.Next(0, 100);
+            localNetwork.Infection(virusFunc);
             Assert.IsTrue(localNetwork.IsNetworkInfected());
         }
 
@@ -51,7 +54,8 @@ namespace LocalNetwork
                 new ConcreteComputer(new Windows(), false)
             };
             var localNetwork = new LocalNetwork(localComputers, adjMatrix);
-            localNetwork.InfectionStep(false);
+            Func<int> virusFunc = () => 0;
+            localNetwork.InfectionStep(virusFunc);
             Assert.IsFalse(localNetwork.IsNetworkInfected());
         }
 
@@ -66,10 +70,11 @@ namespace LocalNetwork
                 new ConcreteComputer(new Windows(), false)
             };
             var localNetwork = new LocalNetwork(localComputers, adjMatrix);
-            localNetwork.InfectionStep(false);
+            Func<int> virusFunc = () => 0;
+            localNetwork.InfectionStep(virusFunc);
             Assert.IsTrue(localComputers[1].IsInfected);
             Assert.IsFalse(localNetwork.IsNetworkInfected());
-            localNetwork.InfectionStep(false);
+            localNetwork.InfectionStep(virusFunc);
             Assert.IsTrue(localNetwork.IsNetworkInfected());
         }
 
@@ -86,16 +91,17 @@ namespace LocalNetwork
                 new ConcreteComputer(new Windows(), false)
             };
             var localNetwork = new LocalNetwork(localComputers, adjMatrix);
-            localNetwork.InfectionStep(false);
+            Func<int> virusFunc = () => 0;
+            localNetwork.InfectionStep(virusFunc);
             Assert.IsTrue(localComputers[1].IsInfected);
             Assert.IsFalse(localComputers[2].IsInfected);
             Assert.IsFalse(localComputers[3].IsInfected);
             Assert.IsFalse(localComputers[4].IsInfected);
-            localNetwork.InfectionStep(false);
+            localNetwork.InfectionStep(virusFunc);
             Assert.IsTrue(localComputers[2].IsInfected);
             Assert.IsFalse(localComputers[3].IsInfected);
             Assert.IsTrue(localComputers[4].IsInfected);
-            localNetwork.InfectionStep(false);
+            localNetwork.InfectionStep(virusFunc);
             Assert.IsTrue(localNetwork.IsNetworkInfected());
         }
 

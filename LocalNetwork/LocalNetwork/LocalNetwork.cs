@@ -35,13 +35,6 @@
         }
 
         /// <summary>
-        /// delegate to get random number or 0
-        /// </summary>
-        /// <param name="isRandom">does we need random nubmer</param>
-        /// <returns>random number or 0</returns>
-        private delegate int RandomDelegate(bool isRandom);
-
-        /// <summary>
         /// random element for virus simulation
         /// </summary>
         private Random randomElement = new Random();
@@ -49,9 +42,8 @@
         /// <summary>
         /// make infection step
         /// </summary>
-        public void InfectionStep(bool isRandom)
+        public void InfectionStep(Func<int> virusChance)
         {
-            RandomDelegate virusChance = tempBool => tempBool ? randomElement.Next(0, 100) : 0;
             infectedComputers = new List<ConcreteComputer>();
             for (var i = 0; i < allComputers.Count; i++)
             {
@@ -61,7 +53,7 @@
                     {
                         if (i != j && linkedComputers[i, j] && !allComputers[j].IsInfected && !infectedComputers.Contains(allComputers[j]))
                         {
-                            if (virusChance(isRandom) < allComputers[j].GetInfectionChance())
+                            if (virusChance() < allComputers[j].GetInfectionChance())
                             {
                                 infectedComputers.Add(allComputers[j]);
                             }
@@ -95,12 +87,12 @@
         /// <summary>
         /// Simulates infection of computers in local network.
         /// </summary>
-        public void Infection(bool isRandom)
+        public void Infection(Func<int> virusChance)
         {
             int step = 1;
             while (!IsNetworkInfected())
             {
-                InfectionStep(isRandom);
+                InfectionStep(virusChance);
                 Console.WriteLine("{0} step:", step);
                 for (var i = 0; i < allComputers.Count; i++)
                 {

@@ -51,8 +51,7 @@ namespace LocalNetwork
                 new ConcreteComputer(new Windows(), false)
             };
             var localNetwork = new LocalNetwork(localComputers, adjMatrix);
-            var randomElement = new Lambda(false);
-            localNetwork.InfectionStep(randomElement);
+            localNetwork.InfectionStep(false);
             Assert.IsFalse(localNetwork.IsNetworkInfected());
         }
 
@@ -67,11 +66,10 @@ namespace LocalNetwork
                 new ConcreteComputer(new Windows(), false)
             };
             var localNetwork = new LocalNetwork(localComputers, adjMatrix);
-            var randomElement = new Lambda(false);
-            localNetwork.InfectionStep(randomElement);
+            localNetwork.InfectionStep(false);
             Assert.IsTrue(localComputers[1].IsInfected);
             Assert.IsFalse(localNetwork.IsNetworkInfected());
-            localNetwork.InfectionStep(randomElement);
+            localNetwork.InfectionStep(false);
             Assert.IsTrue(localNetwork.IsNetworkInfected());
         }
 
@@ -88,17 +86,16 @@ namespace LocalNetwork
                 new ConcreteComputer(new Windows(), false)
             };
             var localNetwork = new LocalNetwork(localComputers, adjMatrix);
-            var randomElement = new Lambda(false);
-            localNetwork.InfectionStep(randomElement);
+            localNetwork.InfectionStep(false);
             Assert.IsTrue(localComputers[1].IsInfected);
             Assert.IsFalse(localComputers[2].IsInfected);
             Assert.IsFalse(localComputers[3].IsInfected);
             Assert.IsFalse(localComputers[4].IsInfected);
-            localNetwork.InfectionStep(randomElement);
+            localNetwork.InfectionStep(false);
             Assert.IsTrue(localComputers[2].IsInfected);
             Assert.IsFalse(localComputers[3].IsInfected);
             Assert.IsTrue(localComputers[4].IsInfected);
-            localNetwork.InfectionStep(randomElement);
+            localNetwork.InfectionStep(false);
             Assert.IsTrue(localNetwork.IsNetworkInfected());
         }
 

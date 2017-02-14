@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Computer.cs" />
-    <Compile Include="Lambda.cs" />
     <Compile Include="Linux.cs" />
     <Compile Include="LocalNetwork.cs" />
     <Compile Include="MacOS.cs" />

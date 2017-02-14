@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-
-namespace LocalNetwork
+﻿namespace LocalNetwork
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// local network simulating class
     /// </summary>
@@ -23,11 +22,6 @@ namespace LocalNetwork
         /// linked computers
         /// </summary>
         private bool[,] linkedComputers;
-        
-        /// <summary>
-        /// ramdom element for simulation
-        /// </summary>
-        private Random randomElement = new Random();
 
         /// <summary>
         /// LocalNetwork constructor class
@@ -43,7 +37,7 @@ namespace LocalNetwork
         /// <summary>
         /// make infection step
         /// </summary>
-        public void InfectionStep(int randomElement)
+        public void InfectionStep(Lambda randomElement)
         {
             infectedComputers = new List<ConcreteComputer>();
             for (var i = 0; i < allComputers.Count; i++)
@@ -54,7 +48,7 @@ namespace LocalNetwork
                     {
                         if (i != j && linkedComputers[i, j] && !allComputers[j].IsInfected && !infectedComputers.Contains(allComputers[j]))
                         {
-                            if (randomElement < allComputers[j].GetInfectionChance())
+                            if (randomElement.ReturnValue < allComputers[j].GetInfectionChance())
                             {
                                 infectedComputers.Add(allComputers[j]);
                             }
@@ -88,12 +82,13 @@ namespace LocalNetwork
         /// <summary>
         /// Simulates infection of computers in local network.
         /// </summary>
-        public void Infection()
+        public void Infection(bool isRandom)
         {
             int step = 1;
             while (!IsNetworkInfected())
             {
-                InfectionStep(randomElement.Next(0, 100));
+                Lambda randomElement = new Lambda(isRandom);
+                InfectionStep(randomElement);
                 Console.WriteLine("{0} step:", step);
                 for (var i = 0; i < allComputers.Count; i++)
                 {

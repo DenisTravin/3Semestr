@@ -81,7 +81,7 @@
         /// </summary>
         /// <param name="point"> point </param>
         /// <returns> 1 - if such line exists, 0 - otherwise </returns>
-        public bool RemoveLine(System.Drawing.PointF point)
+        public bool RemoveLine(PointF point)
         {
             foreach (var item in lines)
             {
